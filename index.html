@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Калькулятор калорий</title>
-<meta name="description" content="Суточная норма калорий по формуле Миффлина — Сан Жеора: для похудения, поддержания веса и набора массы.">
+<meta name="description" content="Суточная норма калорий по формуле Миффлина — Сан Жеора и меню на неделю под неё.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Калькулятор калорий">
-<meta property="og:description" content="Сколько калорий нужно в день? Расчёт по формуле Миффлина — Сан Жеора за 30 секунд.">
+<meta property="og:description" content="Сколько калорий нужно в день? Расчёт по формуле Миффлина — Сан Жеора и меню на неделю под вашу норму.">
 <meta property="og:image" content="https://ivanpleskacevic34-commits.github.io/strongfit/cover.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="675">
@@ -291,6 +291,114 @@ dl { margin: 0; }
   overflow-wrap: anywhere;
 }
 .note { margin: 14px 0 0; font-size: 0.8rem; color: var(--muted); }
+.to-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding-bottom: 2px;
+  color: var(--neon);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--neon-line);
+}
+.to-menu:hover { border-bottom-color: var(--neon); }
+.to-menu:focus-visible { outline: 2px solid var(--neon); outline-offset: 3px; border-radius: 4px; }
+
+/* ---------- Weekly menu ---------- */
+.menu { display: grid; gap: 16px; scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 16px); }
+.menu-head { display: grid; gap: 6px; }
+.menu-head p { margin: 0; color: var(--muted); max-width: 62ch; }
+.days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.day {
+  position: relative;
+  appearance: none;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  font-weight: 600;
+  padding: 12px 0 14px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.day:hover { color: var(--ink); border-color: var(--neon-line); }
+.day[aria-selected="true"] { background: var(--neon); border-color: var(--neon); color: var(--on-neon); }
+.day:focus-visible { outline: 2px solid var(--neon); outline-offset: 2px; }
+.day.today::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 5px;
+  width: 4px; height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.day-panel { display: grid; gap: 12px; }
+.day-sum {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 20px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--neon-line);
+  border-radius: var(--radius);
+}
+.day-total { display: grid; gap: 2px; }
+.day-total b {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.6rem;
+  line-height: 1.1;
+  color: var(--neon);
+  font-variant-numeric: tabular-nums;
+}
+.day-total b span { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; color: var(--muted); }
+.macros { display: flex; flex-wrap: wrap; gap: 6px; }
+.macro {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  white-space: nowrap;
+}
+.macro b { color: var(--ink); }
+.meals { display: grid; gap: 12px; }
+@media (min-width: 760px) { .meals { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.meal {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  min-width: 0;
+}
+.meal-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.meal-kcal { font-family: var(--font-mono); font-weight: 700; font-size: 0.9rem; color: var(--neon); white-space: nowrap; }
+.meal h3 { margin: 0 0 4px; font-size: 1.05rem; font-weight: 600; line-height: 1.3; text-wrap: balance; }
+.meal ul { list-style: none; margin: 0; padding: 0; }
+.meal li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 7px 0;
+  border-top: 1px solid var(--line);
+  font-size: 0.95rem;
+}
+.meal li span:first-child { min-width: 0; }
+.amt { font-family: var(--font-mono); font-weight: 500; white-space: nowrap; }
+.menu-empty { margin: 0; padding: 20px; color: var(--muted); background: var(--surface); border: 1px dashed var(--line); border-radius: var(--radius); }
+.menu-note { margin: 0; font-size: 0.8rem; color: var(--muted); max-width: 70ch; }
 
 @media (max-width: 380px) {
   .nums { grid-template-columns: 1fr 1fr; }
@@ -310,7 +418,7 @@ dl { margin: 0; }
     <div class="hero-body">
       <div class="hero-copy">
         <span class="eyebrow">Формула Миффлина — Сан Жеора</span>
-        <p class="lead">Укажите пол, возраст, вес, рост и активность. Калькулятор покажет суточную норму для похудения, поддержания веса или набора массы.</p>
+        <p class="lead">Укажите пол, возраст, вес, рост и активность. Калькулятор покажет суточную норму калорий и составит под неё меню на неделю.</p>
       </div>
       <a class="cta" href="#calc">Рассчитать норму <span>↓</span></a>
     </div>
@@ -386,6 +494,7 @@ dl { margin: 0; }
             <div class="row" data-goal="keep"><dt>Поддержание</dt><dd id="g-keep">—</dd></div>
             <div class="row" data-goal="gain"><dt>Набор массы</dt><dd id="g-gain">—</dd></div>
           </dl>
+          <a class="to-menu" href="#menu">Меню на неделю под эту норму <span aria-hidden="true">↓</span></a>
           <div class="formula">
             <span class="cap">Расчёт базового обмена</span>
             <output id="formula" for="age weight height">—</output>
@@ -394,6 +503,37 @@ dl { margin: 0; }
         </div>
       </section>
     </div>
+  </section>
+
+  <section class="menu" id="menu">
+    <div class="menu-head">
+      <h2 class="calc-title">Рацион на неделю</h2>
+      <p id="menuLead">Пример меню из продуктов, которые есть в любом магазине Беларуси.</p>
+    </div>
+    <div class="days" role="tablist" aria-label="День недели">
+      <button type="button" class="day" role="tab" id="day-0" aria-controls="dayPanel" aria-label="Понедельник">Пн</button>
+      <button type="button" class="day" role="tab" id="day-1" aria-controls="dayPanel" aria-label="Вторник">Вт</button>
+      <button type="button" class="day" role="tab" id="day-2" aria-controls="dayPanel" aria-label="Среда">Ср</button>
+      <button type="button" class="day" role="tab" id="day-3" aria-controls="dayPanel" aria-label="Четверг">Чт</button>
+      <button type="button" class="day" role="tab" id="day-4" aria-controls="dayPanel" aria-label="Пятница">Пт</button>
+      <button type="button" class="day" role="tab" id="day-5" aria-controls="dayPanel" aria-label="Суббота">Сб</button>
+      <button type="button" class="day" role="tab" id="day-6" aria-controls="dayPanel" aria-label="Воскресенье">Вс</button>
+    </div>
+    <div class="day-panel" id="dayPanel" role="tabpanel" aria-labelledby="day-0" aria-live="polite">
+      <div class="day-sum">
+        <div class="day-total">
+          <span class="cap" id="dayName">Понедельник</span>
+          <b><span>≈</span> <i id="dayKcal" style="font-style:normal">—</i> <span>ккал</span></b>
+        </div>
+        <div class="macros">
+          <span class="macro">Белки <b id="dayP">—</b> г</span>
+          <span class="macro">Жиры <b id="dayF">—</b> г</span>
+          <span class="macro">Углеводы <b id="dayC">—</b> г</span>
+        </div>
+      </div>
+      <div class="meals" id="meals"></div>
+    </div>
+    <p class="menu-note">Крупы и макароны указаны в сухом виде, мясо и рыба в сыром. Это пример меню, а не индивидуальная диета: продукты можно менять на похожие по калорийности.</p>
   </section>
 </div>
 
@@ -430,6 +570,214 @@ dl { margin: 0; }
     return 10 * w + 6.25 * h - 5 * a + (sex === 'm' ? 5 : -161);
   }
 
+  /* ---------- Weekly menu ---------- */
+  // Values per 100 g (eggs per 55 g piece). Grains and pasta dry, meat and fish raw.
+  var FOOD = {
+    oats:     { n: 'Овсяные хлопья', kcal: 352, p: 12.3, f: 6.2, c: 61.8 },
+    buck:     { n: 'Гречка', kcal: 308, p: 12.6, f: 3.3, c: 57.1 },
+    rice:     { n: 'Рис', kcal: 333, p: 7, f: 1, c: 74 },
+    pasta:    { n: 'Макароны (твёрдые сорта)', kcal: 350, p: 12, f: 1.5, c: 71 },
+    flour:    { n: 'Мука пшеничная', kcal: 334, p: 10.3, f: 1.1, c: 69.9 },
+    bread:    { n: 'Хлеб ржаной', kcal: 210, p: 6.8, f: 1.3, c: 40 },
+    potato:   { n: 'Картофель', kcal: 77, p: 2, f: 0.4, c: 16.3 },
+    chicken:  { n: 'Куриное филе', kcal: 113, p: 23.6, f: 1.9, c: 0.4 },
+    turkey:   { n: 'Филе индейки', kcal: 110, p: 23, f: 1.5, c: 0 },
+    beef:     { n: 'Говядина', kcal: 158, p: 22.2, f: 7.1, c: 0 },
+    pork:     { n: 'Свиная вырезка', kcal: 142, p: 19.4, f: 7.1, c: 0 },
+    hake:     { n: 'Хек', kcal: 86, p: 16.6, f: 2.2, c: 0 },
+    herring:  { n: 'Сельдь', kcal: 161, p: 17.7, f: 11.4, c: 0 },
+    egg:      { n: 'Яйцо', kcal: 157, p: 12.7, f: 11.5, c: 0.7, piece: 55 },
+    cottage:  { n: 'Творог 5%', kcal: 121, p: 17.2, f: 5, c: 1.8 },
+    kefir:    { n: 'Кефир 2,5%', kcal: 50, p: 2.9, f: 2.5, c: 4, ml: true },
+    milk:     { n: 'Молоко 2,5%', kcal: 52, p: 2.8, f: 2.5, c: 4.7, ml: true },
+    ryazh:    { n: 'Ряженка 4%', kcal: 76, p: 2.9, f: 4, c: 4.2, ml: true },
+    smetana:  { n: 'Сметана 15%', kcal: 158, p: 2.6, f: 15, c: 3 },
+    cheese:   { n: 'Сыр твёрдый', kcal: 356, p: 23.4, f: 29, c: 0 },
+    butter:   { n: 'Масло сливочное', kcal: 748, p: 0.5, f: 82.5, c: 0.8 },
+    oil:      { n: 'Масло подсолнечное', kcal: 899, p: 0, f: 99.9, c: 0 },
+    honey:    { n: 'Мёд', kcal: 329, p: 0.8, f: 0, c: 80.3 },
+    banana:   { n: 'Банан', kcal: 96, p: 1.5, f: 0.5, c: 21 },
+    apple:    { n: 'Яблоко', kcal: 47, p: 0.4, f: 0.4, c: 9.8 },
+    berries:  { n: 'Ягоды (свежие или замороженные)', kcal: 44, p: 1.1, f: 0.6, c: 7.6 },
+    walnut:   { n: 'Грецкие орехи', kcal: 656, p: 16.2, f: 60.8, c: 11.1 },
+    cucumber: { n: 'Огурцы', kcal: 14, p: 0.8, f: 0.1, c: 2.5 },
+    tomato:   { n: 'Помидоры', kcal: 20, p: 0.6, f: 0.2, c: 4.2 },
+    cabbage:  { n: 'Капуста белокочанная', kcal: 27, p: 1.8, f: 0.1, c: 4.7 },
+    sauer:    { n: 'Квашеная капуста', kcal: 23, p: 1.8, f: 0.1, c: 3 },
+    carrot:   { n: 'Морковь', kcal: 35, p: 1.3, f: 0.1, c: 6.9 },
+    beet:     { n: 'Свёкла', kcal: 42, p: 1.5, f: 0.1, c: 8.8 },
+    onion:    { n: 'Лук репчатый', kcal: 41, p: 1.4, f: 0, c: 10.4 }
+  };
+  var MEAL_NAMES = ['Завтрак', 'Обед', 'Перекус', 'Ужин'];
+  var WEEK = [
+    { d: 'Понедельник', m: [
+      ['Овсянка на молоке с бананом и орехами', [['oats', 60], ['milk', 200], ['banana', 100], ['walnut', 10]]],
+      ['Гречка с куриным филе, салат из капусты и моркови', [['buck', 70], ['chicken', 150], ['cabbage', 120], ['carrot', 40], ['oil', 10]]],
+      ['Творог с ягодами и мёдом', [['cottage', 150], ['berries', 80], ['honey', 10]]],
+      ['Запечённый хек с картофелем и огурцами', [['hake', 200], ['potato', 250], ['cucumber', 150], ['oil', 10], ['bread', 40]]]
+    ]},
+    { d: 'Вторник', m: [
+      ['Омлет с помидорами, хлеб с сыром', [['egg', 3], ['tomato', 150], ['oil', 5], ['bread', 50], ['cheese', 20]]],
+      ['Борщ с говядиной и сметаной', [['beef', 100], ['potato', 100], ['beet', 100], ['cabbage', 80], ['carrot', 40], ['onion', 30], ['oil', 5], ['smetana', 30], ['bread', 40]]],
+      ['Кефир и яблоко', [['kefir', 250], ['apple', 150]]],
+      ['Индейка с рисом и тушёной капустой', [['turkey', 150], ['rice', 60], ['cabbage', 150], ['carrot', 30], ['oil', 10]]]
+    ]},
+    { d: 'Среда', m: [
+      ['Сырники со сметаной', [['cottage', 200], ['egg', 1], ['flour', 30], ['oil', 10], ['smetana', 30]]],
+      ['Макароны с тушёной говядиной и овощной салат', [['pasta', 80], ['beef', 120], ['tomato', 100], ['cucumber', 100], ['oil', 10]]],
+      ['Ряженка и банан', [['ryazh', 200], ['banana', 100]]],
+      ['Куриное филе с овощным рагу', [['chicken', 150], ['potato', 150], ['cabbage', 100], ['carrot', 50], ['onion', 30], ['oil', 10]]]
+    ]},
+    { d: 'Четверг', m: [
+      ['Варёные яйца, бутерброды с маслом и сыром', [['egg', 2], ['bread', 60], ['butter', 10], ['cheese', 30], ['cucumber', 100]]],
+      ['Драники со сметаной и куриное филе', [['potato', 250], ['egg', 1], ['flour', 20], ['oil', 10], ['smetana', 30], ['chicken', 120]]],
+      ['Творог с яблоком', [['cottage', 150], ['apple', 150]]],
+      ['Хек с гречкой и квашеной капустой', [['hake', 200], ['buck', 50], ['sauer', 150], ['oil', 5]]]
+    ]},
+    { d: 'Пятница', m: [
+      ['Овсянка с ягодами и мёдом, варёное яйцо', [['oats', 60], ['milk', 200], ['berries', 80], ['honey', 10], ['egg', 1]]],
+      ['Свинина с картофельным пюре и салатом', [['pork', 150], ['potato', 250], ['milk', 50], ['butter', 5], ['cucumber', 100], ['tomato', 100]]],
+      ['Кефир и грецкие орехи', [['kefir', 250], ['walnut', 15]]],
+      ['Куриное филе под сыром, рис и помидоры', [['chicken', 150], ['cheese', 20], ['rice', 50], ['tomato', 150]]]
+    ]},
+    { d: 'Суббота', m: [
+      ['Творожная запеканка со сметаной и мёдом', [['cottage', 200], ['egg', 1], ['flour', 20], ['smetana', 30], ['honey', 10]]],
+      ['Плов с курицей и огурцы', [['rice', 70], ['chicken', 150], ['carrot', 60], ['onion', 40], ['oil', 10], ['cucumber', 100]]],
+      ['Яблоко и грецкие орехи', [['apple', 200], ['walnut', 15]]],
+      ['Сельдь с картофелем и винегрет', [['herring', 100], ['potato', 200], ['beet', 100], ['sauer', 80], ['carrot', 50], ['oil', 10], ['bread', 30]]]
+    ]},
+    { d: 'Воскресенье', m: [
+      ['Гречка с молоком и варёные яйца', [['buck', 60], ['milk', 200], ['egg', 2]]],
+      ['Тушёная говядина с картофелем и квашеной капустой', [['beef', 150], ['potato', 250], ['sauer', 150], ['oil', 5], ['bread', 30]]],
+      ['Творог со сметаной и ягодами', [['cottage', 150], ['smetana', 20], ['berries', 80]]],
+      ['Хек с рисом и салатом из капусты', [['hake', 200], ['rice', 50], ['cabbage', 120], ['carrot', 40], ['oil', 10]]]
+    ]}
+  ];
+
+  function itemGrams(food, amount) { return food.piece ? amount * food.piece : amount; }
+  function stepFor(food, x) { return food.piece ? 1 : food.ml && x >= 100 ? 50 : x < 40 ? 5 : 10; }
+  function roundAmount(food, x) {
+    var step = stepFor(food, x);
+    return Math.max(step, Math.round(x / step) * step);
+  }
+  function kcalOf(food, amount) { return itemGrams(food, amount) * food.kcal / 100; }
+  // 1) scale every portion by one factor, re-tuning it until the rounded portions land closest to the target;
+  // 2) close the remaining gap one portion step at a time on lean everyday foods (never eggs, oil, butter, nuts or honey).
+  function buildDay(day, target) {
+    var list = [];
+    day.m.forEach(function (meal, mi) {
+      meal[1].forEach(function (it) { list.push({ food: FOOD[it[0]], base: it[1], meal: mi, tweaks: 0 }); });
+    });
+    var base = list.reduce(function (s, it) { return s + kcalOf(it.food, it.base); }, 0);
+    var k = target / base;
+    var best = null;
+    for (var n = 0; n < 8; n++) {
+      var trial = list.map(function (it) { return roundAmount(it.food, it.base * k); });
+      var sum = trial.reduce(function (s, a, i) { return s + kcalOf(list[i].food, a); }, 0);
+      if (!best || Math.abs(sum - target) < Math.abs(best.sum - target)) best = { amts: trial, sum: sum };
+      k *= target / sum;
+    }
+    var amts = best.amts;
+    var total = best.sum;
+    for (var guard = 0; guard < 40; guard++) {
+      var diff = target - total;
+      var pick = -1;
+      var pickGap = Math.abs(diff);
+      list.forEach(function (it, i) {
+        if (it.food.piece || it.food.f > 50 || it.food === FOOD.honey || it.tweaks >= 3) return;
+        var step = stepFor(it.food, amts[i]);
+        var next = amts[i] + (diff > 0 ? step : -step);
+        if (next < step) return;
+        var gap = Math.abs(diff - (kcalOf(it.food, next) - kcalOf(it.food, amts[i])));
+        if (gap < pickGap) { pickGap = gap; pick = i; }
+      });
+      if (pick < 0) break;
+      var st = stepFor(list[pick].food, amts[pick]);
+      var nx = amts[pick] + (diff > 0 ? st : -st);
+      total += kcalOf(list[pick].food, nx) - kcalOf(list[pick].food, amts[pick]);
+      amts[pick] = nx;
+      list[pick].tweaks++;
+    }
+    var tot = { kcal: 0, p: 0, f: 0, c: 0 };
+    var meals = day.m.map(function (meal, i) { return { label: MEAL_NAMES[i], title: meal[0], kcal: 0, items: [] }; });
+    list.forEach(function (it, i) {
+      var food = it.food;
+      var g = itemGrams(food, amts[i]) / 100;
+      tot.kcal += g * food.kcal; tot.p += g * food.p; tot.f += g * food.f; tot.c += g * food.c;
+      meals[it.meal].kcal += g * food.kcal;
+      meals[it.meal].items.push({ name: food.n, amount: amts[i] + (food.piece ? ' шт' : food.ml ? ' мл' : ' г') });
+    });
+    return { meals: meals, tot: tot };
+  }
+
+  var todayIdx = (new Date().getDay() + 6) % 7;
+  var selDay = todayIdx;
+  var menuTarget = null;
+  var dayBtns = Array.prototype.slice.call(document.querySelectorAll('.day'));
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function renderMenu() {
+    var day = WEEK[selDay];
+    dayBtns.forEach(function (b, i) {
+      b.setAttribute('aria-selected', i === selDay ? 'true' : 'false');
+      b.tabIndex = i === selDay ? 0 : -1;
+    });
+    $('dayPanel').setAttribute('aria-labelledby', 'day-' + selDay);
+    setText('dayName', day.d + (selDay === todayIdx ? ' · сегодня' : ''));
+    var box = $('meals');
+    box.textContent = '';
+    if (menuTarget === null) {
+      ['dayKcal', 'dayP', 'dayF', 'dayC'].forEach(function (id) { setText(id, '—'); });
+      box.appendChild(el('p', 'menu-empty', 'Заполните возраст, вес и рост, и здесь появится меню под вашу норму.'));
+      return;
+    }
+    var r = buildDay(day, menuTarget);
+    setText('dayKcal', nf.format(r.tot.kcal));
+    setText('dayP', nf.format(r.tot.p));
+    setText('dayF', nf.format(r.tot.f));
+    setText('dayC', nf.format(r.tot.c));
+    r.meals.forEach(function (m) {
+      var card = el('article', 'meal');
+      var top = el('div', 'meal-top');
+      top.appendChild(el('span', 'cap', m.label));
+      top.appendChild(el('span', 'meal-kcal', nf.format(m.kcal) + ' ккал'));
+      card.appendChild(top);
+      card.appendChild(el('h3', null, m.title));
+      var ul = el('ul');
+      m.items.forEach(function (it) {
+        var li = el('li');
+        li.appendChild(el('span', null, it.name));
+        li.appendChild(el('span', 'amt', it.amount));
+        ul.appendChild(li);
+      });
+      card.appendChild(ul);
+      box.appendChild(card);
+    });
+  }
+  function setMenuTarget(t, goalText) {
+    menuTarget = t;
+    setText('menuLead', t === null
+      ? 'Пример меню из продуктов, которые есть в любом магазине Беларуси.'
+      : 'Порции рассчитаны на ' + nf.format(t) + ' ккал в день ' + goalText + '. Все продукты есть в любом магазине Беларуси.');
+    renderMenu();
+  }
+  dayBtns.forEach(function (b, i) {
+    if (i === todayIdx) { b.classList.add('today'); b.title = 'Сегодня'; }
+    b.addEventListener('click', function () { selDay = i; renderMenu(); });
+    b.addEventListener('keydown', function (e) {
+      var step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!step) return;
+      e.preventDefault();
+      selDay = (selDay + step + 7) % 7;
+      renderMenu();
+      dayBtns[selDay].focus();
+    });
+  });
+
   function update() {
     var sex = picked('sex');
     var act = Number(picked('act'));
@@ -456,6 +804,7 @@ dl { margin: 0; }
     if (!ok) {
       ['target', 'bmr', 'tdee', 'g-lose', 'g-keep', 'g-gain'].forEach(function (id) { setText(id, '—'); });
       setText('formula', 'Заполните возраст, вес и рост');
+      setMenuTarget(null);
       return;
     }
 
@@ -474,6 +823,7 @@ dl { margin: 0; }
       ' − 5 × ' + df.format(vals.age) +
       (sex === 'm' ? ' + 5' : ' − 161') +
       ' = ' + nf.format(bmr) + ' ккал');
+    setMenuTarget(tdee * GOALS[goal].k, GOALS[goal].text);
   }
 
   var touched = false;
